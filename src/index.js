@@ -1,8 +1,7 @@
-document.write('<h1>It works</h1>');
+var Redux = require('redux');
 
-var redux = require('redux');
-
-var expect = require('expect');
+var React = require('react');
+var ReactDOM = require('react-dom');
 
 const currentTime = () => Math.floor(Date.now() / 1000);
 
@@ -44,19 +43,38 @@ const counter = (state = 0, action) => {
     return state;
 }
 
-const store = redux.createStore(counter);
+const store = Redux.createStore(counter);
+
+const Counter = ({
+    value,
+    onIncrement,
+    onDecrement
+}) => (
+    <div>
+        <h1>{value}</h1>
+        <button onClick={onIncrement}>+</button>
+        <button onClick={onDecrement}>-</button>
+    </div>
+);
 
 const render = () => {
-    document.body.innerText = store.getState();
+    ReactDOM.render(
+        <Counter
+            value={store.getState()}
+            onIncrement={() =>
+                store.dispatch({
+                    type: 'INCREMENT'
+                })
+            }
+            onDecrement={() =>
+                store.dispatch({
+                    type: 'DECREMENT'
+                })
+            }
+        />,
+        document.getElementById('root')
+    );
 };
 
 store.subscribe(render);
 render();
-
-document.addEventListener('click', () => {
-    store.dispatch({ type: 'INCREMENT' });
-});
-
-setInterval( () => {
-    store.dispatch( { type: 'DECREMENT' } )
-}, 3000);
