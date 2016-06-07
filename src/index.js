@@ -59,4 +59,4 @@ render();
 
 setInterval(() => {
     store.dispatch( {type: 'timeIncrement'} );
-}, 500);
+}, 1000);
