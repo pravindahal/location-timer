@@ -1,7 +1,7 @@
-var Redux = require('redux');
-
-var React = require('react');
-var ReactDOM = require('react-dom');
+const Redux = require('redux');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Moment = require('moment');
 
 const currentTime = () => Math.floor(Date.now() / 1000);
 
@@ -41,14 +41,14 @@ const DurationView = ({
     duration
 }) => (
     <div>
-        <h1>{duration} seconds passed</h1>
+        <h1>You have opened this page for {duration}</h1>
     </div>
 );
 
 const render = () => {
     ReactDOM.render(
         <DurationView
-            duration={store.getState().duration}
+            duration={Moment.duration(store.getState().duration, "seconds").humanize()}
         />,
         document.getElementById('root')
     );
