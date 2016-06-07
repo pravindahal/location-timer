@@ -1,27 +1,15 @@
+document.write('<h1>It works</h1>');
+
 //var redux = require('redux');
 
-var startState = {
-    'radius': 300, // 300m fixed radius
-    'center': [
-        59.944250, 10.723387 // Oslo house fixed center
-    ],
-    'time': 0
-};
+var expect = require('expect');
 
-function getState(currentState, property, value)
-{
-    var newState = {
-        'radius': currentState.radius,
-        'center': currentState.center,
-        'time': currentState.time
-    };
-    if (property !== undefined) {
-      newState[property] = value;
+const counter = (state = 0, action) => {
+    if (action.type === 'INCREMENT') {
+        return state + 1;
+    } else if (action.type === 'DECREMENT') {
+        return state - 1;
     }
-    return newState;
-}
-
-function counter(state = 0, action) {
     return state;
 }
 
@@ -29,4 +17,16 @@ expect(
     counter(0, {type: 'INCREMENT'})
 ).toEqual(1);
 
-document.write('<h1>It works</h1>');
+expect(
+    counter(1, {type: 'INCREMENT'})
+).toEqual(2);
+
+expect(
+    counter(1, {type: 'DECREMENT'})
+).toEqual(0);
+
+expect(
+    counter(undefined, {})
+).toEqual(0);
+
+console.log('tests passed');
