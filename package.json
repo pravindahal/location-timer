@@ -1,0 +1,38 @@
+{
+  "name": "location-timer",
+  "version": "1.0.0",
+  "description": "A simple app to time how long you have been in an area",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pravindahal/location-timer.git"
+  },
+  "author": "Pravin Dahal",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pravindahal/location-timer/issues"
+  },
+  "homepage": "https://github.com/pravindahal/location-timer#readme",
+  "dependencies": {
+    "expect": "^1.20.1",
+    "react": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.2",
+    "babel-plugin-transform-runtime": "^6.6.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-runtime": "^6.6.1",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "redux-devtools": "^3.3.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
