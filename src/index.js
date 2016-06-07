@@ -5,7 +5,7 @@ var ReactDOM = require('react-dom');
 
 const currentTime = () => Math.floor(Date.now() / 1000);
 
-var startState = {
+const startState = {
     radius: 300, // 300m fixed radius
     center: [
         59.944250, 10.723387 // Oslo house fixed center
