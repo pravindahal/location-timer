@@ -26,9 +26,9 @@ const changeState = (currentState = startState, action) => {
                 center: action.location //TODO compute center based on location
             });
             break;
-        case 'timeIncrement':
+        case 'timeChange':
             return Object.assign({}, currentState, {
-                duration: currentTime() - currentState.startTime
+                duration: action.duration
             });
             break;
     }
@@ -58,5 +58,5 @@ store.subscribe(render);
 render();
 
 setInterval(() => {
-    store.dispatch( {type: 'timeIncrement'} );
+    store.dispatch( {type: 'timeChange', duration: currentTime() - store.getState().startTime} );
 }, 1000);
