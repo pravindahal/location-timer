@@ -11,66 +11,44 @@ var startState = {
         59.944250, 10.723387 // Oslo house fixed center
     ],
     startTime: currentTime(),
-    time: 0
+    duration: 0
 };
 
-const changeState = (currentState, action) => {
-    var newState = {
-        radius: currentState.radius,
-        center: currentState.center,
-        time: currentState.time
-    };
+const changeState = (currentState = startState, action) => {
     switch (action.type) {
-        case 'radius-change':
-            newState.radius = action.radius;
+        case 'radiusChange':
+            return Object.assign({}, currentState, {
+                radius: action.radius
+            });
             break;
-        case 'location-change':
-            newState.center = action.location; //TODO compute location
+        case 'locationChange':
+            return Object.assign({}, currentState, {
+                center: action.location //TODO compute center based on location
+            });
             break;
-        case 'time-increment':
-            newState.time = currentTime - currentState.startTime;
+        case 'timeIncrement':
+            return Object.assign({}, currentState, {
+                duration: currentTime() - currentState.startTime
+            });
             break;
     }
-    return newState;
+    return currentState;
 }
 
-const counter = (state = 0, action) => {
-    if (action.type === 'INCREMENT') {
-        return state + 1;
-    } else if (action.type === 'DECREMENT') {
-        return state - 1;
-    }
-    return state;
-}
+const store = Redux.createStore(changeState);
 
-const store = Redux.createStore(counter);
-
-const Counter = ({
-    value,
-    onIncrement,
-    onDecrement
+const DurationView = ({
+    duration
 }) => (
     <div>
-        <h1>{value}</h1>
-        <button onClick={onIncrement}>+</button>
-        <button onClick={onDecrement}>-</button>
+        <h1>{duration} seconds passed</h1>
     </div>
 );
 
 const render = () => {
     ReactDOM.render(
-        <Counter
-            value={store.getState()}
-            onIncrement={() =>
-                store.dispatch({
-                    type: 'INCREMENT'
-                })
-            }
-            onDecrement={() =>
-                store.dispatch({
-                    type: 'DECREMENT'
-                })
-            }
+        <DurationView
+            duration={store.getState().duration}
         />,
         document.getElementById('root')
     );
@@ -78,3 +56,7 @@ const render = () => {
 
 store.subscribe(render);
 render();
+
+setInterval(() => {
+    store.dispatch( {type: 'timeIncrement'} );
+}, 500);
