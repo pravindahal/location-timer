@@ -17,6 +17,9 @@ const startState = {
 const changeState = (currentState = startState, action) => {
     switch (action.type) {
         case 'radiusChange':
+            // this is ES6 way of creating a copy of a new object with only
+            // one property changed. Here it returns currentState with
+            // currentState.radius set to action.radius
             return Object.assign({}, currentState, {
                 radius: action.radius
             });
